@@ -4,34 +4,15 @@ import {
   Draggable,
   DraggableItem,
   DraggableTypes,
-  Items,
 } from "components/Draggable";
 import { useCallback, useEffect, useState } from "react";
 import { DropTargetMonitor, useDrop, XYCoord } from "react-dnd";
-import { nanoid } from "nanoid";
 import { inventory, keysToDelete } from "config";
+import { useStore } from "store/items";
 
 export default function Home() {
-  const [items, setItems] = useState<Items>({});
   const [selectedItem, setSelectedItem] = useState<string>();
-
-  const moveItems = useCallback(
-    (item: DraggableItem, left: number, top: number) => {
-      setItems((items) => {
-        const newItems = { ...items };
-        const { id, type, color } = item;
-
-        newItems[type === DraggableTypes.ITEM ? id : nanoid()] = {
-          ...items[id],
-          color,
-          left,
-          top,
-        };
-        return newItems;
-      });
-    },
-    [setItems]
-  );
+  const { items, moveItem, deleteItem } = useStore();
 
   const [, drop] = useDrop(
     () => ({
@@ -49,11 +30,11 @@ export default function Home() {
         const top = Math.round(
           item.top + delta.y + (isOnCanvas ? 0 : initialSourceOffset.y)
         );
-        moveItems(item, left, top);
+        moveItem(item, left, top);
         return undefined;
       },
     }),
-    [moveItems]
+    [moveItem]
   );
 
   const handleOnSelect = useCallback((id: string) => {
@@ -63,11 +44,7 @@ export default function Home() {
   useEffect(() => {
     const deleteSelectedItem = () => {
       if (selectedItem) {
-        setItems((items) => {
-          const newItems = { ...items };
-          delete newItems[selectedItem];
-          return newItems;
-        });
+        deleteItem(selectedItem);
       }
     };
 
@@ -82,7 +59,7 @@ export default function Home() {
     return () => {
       window.removeEventListener("keyup", upHandler);
     };
-  }, [selectedItem]);
+  }, [deleteItem, selectedItem]);
 
   return (
     <div>
