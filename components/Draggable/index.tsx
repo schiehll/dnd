@@ -1,6 +1,14 @@
 import { CSSProperties } from "react";
 import { useDrag } from "react-dnd";
 
+export type Items = {
+  [key: string]: {
+    top: number;
+    left: number;
+    color: string;
+  };
+};
+
 export enum DraggableTypes {
   ITEM = "ITEM",
   INVENTORY_ITEM = "INVENTORY_ITEM",

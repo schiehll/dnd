@@ -1,0 +1,6 @@
+{
+  "{pages,components,store,config}/**/*.{js,ts,jsx,tsx}": [
+    "eslint --fix",
+    "prettier --write"
+  ]
+}

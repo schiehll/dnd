@@ -4,29 +4,12 @@ import {
   Draggable,
   DraggableItem,
   DraggableTypes,
+  Items,
 } from "components/Draggable";
 import { useCallback, useEffect, useState } from "react";
 import { DropTargetMonitor, useDrop, XYCoord } from "react-dnd";
 import { nanoid } from "nanoid";
-
-type Items = {
-  [key: string]: {
-    top: number;
-    left: number;
-    color: string;
-  };
-};
-
-const inventory: Items = {
-  [nanoid()]: { top: 0, left: 0, color: Colors.violet },
-  [nanoid()]: { top: 0, left: 0, color: Colors.green },
-  [nanoid()]: { top: 0, left: 0, color: Colors.blue },
-  [nanoid()]: { top: 0, left: 0, color: Colors.orange },
-  [nanoid()]: { top: 0, left: 0, color: Colors.purple },
-  [nanoid()]: { top: 0, left: 0, color: Colors.black },
-};
-
-const keysToDelete: string[] = ["Backspace"];
+import { inventory, keysToDelete } from "config";
 
 export default function Home() {
   const [items, setItems] = useState<Items>({});
