@@ -9,6 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 import { DropTargetMonitor, useDrop, XYCoord } from "react-dnd";
 import { inventory, keysToDelete } from "config";
 import { useStore } from "store/items";
+import styles from "styles/Home.module.scss";
 
 export default function Home() {
   const [selectedItem, setSelectedItem] = useState<string>();
@@ -67,32 +68,12 @@ export default function Home() {
         <title>DND</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main
-        style={{
-          width: "100vw",
-          height: "100vh",
-          display: "flex",
-        }}
-      >
-        <div
-          style={{
-            width: "230px",
-            height: "100vh",
-            background: "white",
-            padding: "10px",
-          }}
-        >
+      <main className={styles.main}>
+        <div className={styles.inventory}>
           {Object.keys(inventory).map((key: string) => {
             const { left, top, color } = inventory[key];
             return (
-              <div
-                key={key}
-                style={{
-                  height: "50px",
-                  display: "inline-block",
-                  margin: "10px",
-                }}
-              >
+              <div key={key} className={styles.inventoryItem}>
                 <Draggable
                   type={DraggableTypes.INVENTORY_ITEM}
                   id={key}
@@ -104,15 +85,7 @@ export default function Home() {
             );
           })}
         </div>
-        <div
-          ref={drop}
-          style={{
-            width: "calc(100vw - 230px)",
-            height: "100vh",
-            background: "lightgray",
-            position: "relative",
-          }}
-        >
+        <div ref={drop} className={styles.canvas}>
           {Object.keys(items).map((key) => {
             const { left, top, color } = items[key];
             return (

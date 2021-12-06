@@ -1,0 +1,25 @@
+.main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.inventory {
+  width: 230px;
+  height: 100vh;
+  background: white;
+  padding: 10px;
+}
+
+.inventoryItem {
+  height: 50px;
+  display: inline-block;
+  margin: 10px;
+}
+
+.canvas {
+  width: calc(100vw - 230px);
+  height: 100vh;
+  background: lightgray;
+  position: relative;
+}

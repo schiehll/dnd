@@ -1,5 +1,9 @@
 import { CSSProperties } from "react";
 import { useDrag } from "react-dnd";
+import classnames from "classnames/bind";
+import styles from "./styles.module.scss";
+
+const cn = classnames.bind(styles);
 
 export type Items = {
   [key: string]: {
@@ -56,15 +60,11 @@ export const Draggable = ({
   return (
     <div
       ref={drag}
+      className={cn("draggable", { isOnCanvas, isSelected })}
       style={{
-        left: isOnCanvas ? `calc(${left}px - 230px)` : left,
         top,
-        width: 50,
-        height: 50,
         backgroundColor: Colors[color],
-        position: isOnCanvas ? "absolute" : "relative",
-        cursor: "move",
-        border: isSelected ? "2px solid red" : "none",
+        left: isOnCanvas ? `calc(${left}px - 230px)` : left,
       }}
       onClick={() => onClick?.(id)}
     />
